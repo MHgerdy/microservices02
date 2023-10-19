@@ -16,8 +16,8 @@ FROM eclipse-temurin:11
 
 #maintainer 
 MAINTAINER g.jockel@gmx.de
-#expose port 8080
-EXPOSE 8080
+#expose port 8081
+EXPOSE 8081
 
 #default command
 #CMD java -jar /data/hello-world-0.1.0.jar
