@@ -1,29 +1,6 @@
-# Maven build container 
-
-FROM maven:3.8.5-openjdk-11 AS maven_build
-
-COPY pom.xml /tmp/
-
-COPY src /tmp/src/
-
-WORKDIR /tmp/
-
-RUN mvn package
-
-#pull base image
-
-FROM eclipse-temurin:11
-
-#maintainer 
-MAINTAINER g.jockel@gmx.de
-#expose port 8081
-EXPOSE 8081
-
-#default command
-#CMD java -jar /data/hello-world-0.1.0.jar
-CMD java -jar /data/microservices02-0.0.1-SNAPSHOT.jar
-
-#copy hello world to docker image from builder image
-
-#COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /data/hello-world-0.1.0.jar
-COPY --from=maven_build /tmp/target/microservices02-0.0.1-SNAPSHOT.jar /data/microservices02-0.0.1-SNAPSHOT.jar
+FROM openjdk:11
+VOLUME /tmp
+EXPOSE 8080
+ARG JAR_FILE=target/microservices02-0.0.1-SNAPSHOT.jar
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
