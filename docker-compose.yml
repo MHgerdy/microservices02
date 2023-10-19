@@ -1,0 +1,9 @@
+version: "3.0"
+
+services:
+  microservices02:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
